@@ -44,4 +44,9 @@ function displayBook() {
   })
 }
 
+const addBtn = document.querySelector('.addBtn');
+addBtn.addEventListener('click', () => {
+  alert("hello, world");
+})
+
 displayBook();
