@@ -5,19 +5,10 @@ function Book(title, author, pages, read) {
   this.author = author
   this.pages = pages
   this.read = read
-  this.info = function() {
-    return `${title} by ${author}, ${pages}, ${read === true ? 'read' : 'not read yet'}`
-  }
 }
 
-function addBookToLibrary() {
-  let newBook = Object.create(Book.prototype);
-  newBook.title = window.prompt("Book name?: ");
-  newBook.author = window.prompt("Book author?: ");
-  newBook.pages = window.prompt("Book pages?: ");
-  newBook.read = window.prompt("Have you read this book? yes or no?");
-
-  myLibrary.push(newBook);
+function addBookToLibrary(book) {
+  myLibrary.push(book);
 }
 
 function displayBook() {
@@ -63,7 +54,7 @@ submitBtn.addEventListener('click', () => {
   newBook.pages = `${pages.value} pages`;
   newBook.read = read.value;
 
-  myLibrary.push(newBook);
+  addBookToLibrary(newBook);
 
   // clear the books from display before displaying again so that display
   // books do not double
