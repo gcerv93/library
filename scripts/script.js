@@ -44,6 +44,8 @@ function displayBook() {
   })
 }
 
+
+// button event listeners
 const addBtn = document.querySelector('.addBtn');
 addBtn.addEventListener('click', () => {
   document.querySelector('.popup-form').style.display = 'flex';
@@ -51,9 +53,36 @@ addBtn.addEventListener('click', () => {
 });
 
 const formClose = document.querySelector('.close');
-formClose.addEventListener('click', () => {
+formClose.addEventListener('click', closeBookForm);
+
+const submitBtn = document.querySelector('.submit-book');
+submitBtn.addEventListener('click', () => {
+  let newBook = Object.create(Book.prototype);
+  newBook.title = title.value;
+  newBook.author = author.value;
+  newBook.pages = `${pages.value} pages`;
+  newBook.read = read.value;
+
+  myLibrary.push(newBook);
+
+  // clear the books from display before displaying again so that display
+  // books do not double
+  closeBookForm();
+  clearDisplay();
+  displayBook();
+})
+
+
+// helper functions
+function clearDisplay() {
+  const container = document.querySelector('.main');
+  while(container.firstChild){
+    container.removeChild(container.firstChild);
+}};
+
+function closeBookForm() {
   document.querySelector('.popup-form').style.display = 'none';
   document.querySelector('#overlay').classList.toggle('overlay');
-})
+}
 
 displayBook();
