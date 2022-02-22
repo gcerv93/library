@@ -46,7 +46,14 @@ function displayBook() {
 
 const addBtn = document.querySelector('.addBtn');
 addBtn.addEventListener('click', () => {
-  alert("hello, world");
+  document.querySelector('.popup-form').style.display = 'flex';
+  document.querySelector('#overlay').classList.toggle('overlay');
+});
+
+const formClose = document.querySelector('.close');
+formClose.addEventListener('click', () => {
+  document.querySelector('.popup-form').style.display = 'none';
+  document.querySelector('#overlay').classList.toggle('overlay');
 })
 
 displayBook();
