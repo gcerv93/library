@@ -1,4 +1,4 @@
-let myLibrary = [];
+let myLibrary = [new Book('game of thrones', 'george rr martin', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes')];
 
 function Book(title, author, pages, read) {
   this.title = title
@@ -19,3 +19,29 @@ function addBookToLibrary() {
 
   myLibrary.push(newBook);
 }
+
+function displayBook() {
+  const container = document.querySelector('.main');
+  myLibrary.forEach(book => {
+    const title = document.createElement('p');
+    const author = document.createElement('p');
+    const pages = document.createElement('p');
+    const read = document.createElement('p');
+
+    title.textContent = book.title;
+    author.textContent = book.author;
+    pages.textContent = book.pages;
+    read.textContent = book.read;
+
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(pages);
+    card.appendChild(read);
+
+    container.appendChild(card);
+  })
+}
+
+displayBook();
