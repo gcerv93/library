@@ -19,5 +19,3 @@ function addBookToLibrary() {
 
   myLibrary.push(newBook);
 }
-
-addBookToLibrary();
