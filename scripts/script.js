@@ -58,6 +58,12 @@ formClose.addEventListener('click', closeBookForm);
 const submitBtn = document.querySelector('.submit-book');
 submitBtn.addEventListener('click', submitBook);
 
+const readBtnForm = document.querySelector('#read');
+readBtnForm.addEventListener('click', (e) => {
+  e.target.textContent = e.target.textContent === 'Read' ? 'Unread' : 'Read'
+  e.target.classList.toggle('unread-button-form');
+})
+
 function addDeleteBtnListener(index) {
   const cardCloseBtn = document.querySelector(`[data-index="${index}"]`);
   cardCloseBtn.addEventListener('click', () => {
