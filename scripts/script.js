@@ -38,10 +38,9 @@ function displayBook() {
 
 // button event listeners
 const addBtn = document.querySelector('.addBtn');
-addBtn.addEventListener('click', () => {
-  document.querySelector('.popup-form').style.display = 'flex';
-  document.querySelector('#overlay').classList.toggle('overlay');
-});
+function addBtnListener() {
+  addBtn.addEventListener('click', addBtnClick);
+}
 
 const formClose = document.querySelector('.close');
 formClose.addEventListener('click', closeBookForm);
@@ -58,6 +57,7 @@ submitBtn.addEventListener('click', () => {
 
   // clear the books from display before displaying again so that display
   // books do not double
+  document.querySelector('.form').reset();
   closeBookForm();
   clearDisplay();
   displayBook();
@@ -74,6 +74,14 @@ function clearDisplay() {
 function closeBookForm() {
   document.querySelector('.popup-form').style.display = 'none';
   document.querySelector('#overlay').classList.toggle('overlay');
+  addBtnListener();
+}
+
+function addBtnClick() {
+  document.querySelector('.popup-form').style.display = 'flex';
+  document.querySelector('#overlay').classList.toggle('overlay');
+  addBtn.removeEventListener('click', addBtnClick);
 }
 
 displayBook();
+addBtnListener();
