@@ -68,8 +68,7 @@ function addDeleteBtnListener(index) {
   const cardCloseBtn = document.querySelector(`[data-index="${index}"]`);
   cardCloseBtn.addEventListener('click', () => {
     myLibrary.splice(index, 1);
-    clearDisplay();
-    displayBook();
+    clearAndDisplay();
   })
 }
 
@@ -86,8 +85,7 @@ function readBtnListener(index) {
       readBtn.classList.toggle('read');
     }
     myLibrary[index].changeReadBtn();
-    clearDisplay();
-    displayBook();
+    clearAndDisplay();
   })
 }
 
@@ -126,10 +124,11 @@ function submitBook() {
   // books do not double
   document.querySelector('.form').reset();
   closeBookForm();
-  clearDisplay();
-  displayBook();
+  clearAndDisplay();
 }
 
+// make the delete button inside a seperate div to better position it
+// on the cards. add an index for event listeners
 function createDeleteBtn(index) {
   const deleteContainer = document.createElement('div');
   const deleteBtn = document.createElement('img');
@@ -140,6 +139,11 @@ function createDeleteBtn(index) {
 
   deleteContainer.appendChild(deleteBtn);
   return deleteContainer;
+}
+
+function clearAndDisplay() {
+  clearDisplay();
+  displayBook();
 }
 
 displayBook();
