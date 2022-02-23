@@ -1,10 +1,14 @@
-let myLibrary = [new Book('game of thrones', 'george rr martin', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes'), new Book('atomic habits', 'doobie', 332, 'yes')];
+let myLibrary = [];
 
 function Book(title, author, pages, read) {
   this.title = title
   this.author = author
   this.pages = pages
   this.read = read
+}
+
+Book.prototype.changeReadBtn = function() {
+  this.read = readBtn.textContent;
 }
 
 function addBookToLibrary(book) {
@@ -17,12 +21,15 @@ function displayBook() {
     const title = document.createElement('p');
     const author = document.createElement('p');
     const pages = document.createElement('p');
-    const read = document.createElement('p');
+    const read = document.createElement('button');
+
+    read.dataset.i = index;
 
     title.textContent = book.title;
     author.textContent = book.author;
     pages.textContent = book.pages;
     read.textContent = book.read;
+    read.textContent === 'Read' ? read.classList.toggle('read') : read.classList.toggle('not-read')
 
     const card = document.createElement('div');
     card.classList.add('card');
@@ -34,6 +41,7 @@ function displayBook() {
 
     container.appendChild(card);
     addDeleteBtnListener(index);
+    readBtnListener(index);
   })
 }
 
@@ -49,6 +57,33 @@ formClose.addEventListener('click', closeBookForm);
 
 const submitBtn = document.querySelector('.submit-book');
 submitBtn.addEventListener('click', submitBook);
+
+function addDeleteBtnListener(index) {
+  const cardCloseBtn = document.querySelector(`[data-index="${index}"]`);
+  cardCloseBtn.addEventListener('click', () => {
+    myLibrary.splice(index, 1);
+    clearDisplay();
+    displayBook();
+  })
+}
+
+function readBtnListener(index) {
+  const readBtn = document.querySelector(`[data-i="${index}"]`);
+  readBtn.addEventListener('click', () => {
+    if (readBtn.textContent === 'Read') {
+      readBtn.textContent = 'Unread';
+      readBtn.classList.remove('read');
+      readBtn.classList.toggle('not-read');
+    } else {
+      readBtn.textContent = 'Read'
+      readBtn.classList.remove('not-read');
+      readBtn.classList.toggle('read');
+    }
+    myLibrary[index].changeReadBtn();
+    clearDisplay();
+    displayBook();
+  })
+}
 
 
 // helper functions
@@ -77,7 +112,7 @@ function submitBook() {
   newBook.title = title.value;
   newBook.author = author.value;
   newBook.pages = `${pages.value} pages`;
-  newBook.read = read.value;
+  newBook.read = read.textContent;
 
   addBookToLibrary(newBook);
 
@@ -99,15 +134,6 @@ function createDeleteBtn(index) {
 
   deleteContainer.appendChild(deleteBtn);
   return deleteContainer;
-}
-
-function addDeleteBtnListener(index) {
-  const cardCloseBtn = document.querySelector(`[data-index="${index}"]`);
-  cardCloseBtn.addEventListener('click', () => {
-    myLibrary.splice(index, 1);
-    clearDisplay();
-    displayBook();
-  })
 }
 
 displayBook();

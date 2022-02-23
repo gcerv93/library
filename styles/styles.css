@@ -106,6 +106,24 @@ header {
   height: 27px;
 }
 
+.card button {
+  width: 35%;
+  height: 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.read {
+  background-color: #6eb5c0;
+}
+
+.not-read {
+  background-color: rgb(247, 90, 90);
+}
+
 .addBtn>img {
   width: 50px;
   height: 50px;
@@ -144,7 +162,31 @@ header {
   font-size: 1.2rem;
 }
 
-.popup-form button {
+.read-button-form {
+  width: 50%;
+  align-self: center;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  background-color: #6eb5c0;
+  cursor: pointer;
+}
+
+.unread-button-form {
+  width: 50%;
+  align-self: center;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(247, 90, 90);
+}
+
+.submit-book {
   width: 50%;
   align-self: center;
   height: 2rem;
@@ -197,3 +239,4 @@ header {
   left: 0;
   bottom: 0;
 }
+
