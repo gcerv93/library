@@ -8,7 +8,7 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.changeReadBtn = function() {
-  this.read = readBtn.textContent;
+  this.read = this.read === 'Read' ? 'Unread' : 'Read'
 }
 
 function addBookToLibrary(book) {
