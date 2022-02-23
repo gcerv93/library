@@ -13,7 +13,7 @@ function addBookToLibrary(book) {
 
 function displayBook() {
   const container = document.querySelector('.main');
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book, index) => {
     const title = document.createElement('p');
     const author = document.createElement('p');
     const pages = document.createElement('p');
@@ -26,12 +26,14 @@ function displayBook() {
 
     const card = document.createElement('div');
     card.classList.add('card');
+    card.appendChild(createDeleteBtn(index));
     card.appendChild(title);
     card.appendChild(author);
     card.appendChild(pages);
     card.appendChild(read);
 
     container.appendChild(card);
+    addDeleteBtnListener(index);
   })
 }
 
@@ -46,7 +48,31 @@ const formClose = document.querySelector('.close');
 formClose.addEventListener('click', closeBookForm);
 
 const submitBtn = document.querySelector('.submit-book');
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener('click', submitBook);
+
+
+// helper functions
+function clearDisplay() {
+  const container = document.querySelector('.main');
+  while(container.firstChild){
+    container.removeChild(container.firstChild);
+}};
+
+// remove addBtn listener when the form pops up
+function addBtnClick() {
+  document.querySelector('.popup-form').style.display = 'flex';
+  document.querySelector('#overlay').classList.toggle('overlay');
+  addBtn.removeEventListener('click', addBtnClick);
+}
+
+// turn on addBtn listener when the form is closed with closed button
+function closeBookForm() {
+  document.querySelector('.popup-form').style.display = 'none';
+  document.querySelector('#overlay').classList.toggle('overlay');
+  addBtnListener();
+}
+
+function submitBook() {
   let newBook = Object.create(Book.prototype);
   newBook.title = title.value;
   newBook.author = author.value;
@@ -61,26 +87,27 @@ submitBtn.addEventListener('click', () => {
   closeBookForm();
   clearDisplay();
   displayBook();
-})
-
-
-// helper functions
-function clearDisplay() {
-  const container = document.querySelector('.main');
-  while(container.firstChild){
-    container.removeChild(container.firstChild);
-}};
-
-function closeBookForm() {
-  document.querySelector('.popup-form').style.display = 'none';
-  document.querySelector('#overlay').classList.toggle('overlay');
-  addBtnListener();
 }
 
-function addBtnClick() {
-  document.querySelector('.popup-form').style.display = 'flex';
-  document.querySelector('#overlay').classList.toggle('overlay');
-  addBtn.removeEventListener('click', addBtnClick);
+function createDeleteBtn(index) {
+  const deleteContainer = document.createElement('div');
+  const deleteBtn = document.createElement('img');
+  deleteBtn.src = "./images/close.svg";
+  deleteBtn.dataset.index = index
+
+  deleteContainer.classList.toggle('card-close');
+
+  deleteContainer.appendChild(deleteBtn);
+  return deleteContainer;
+}
+
+function addDeleteBtnListener(index) {
+  const cardCloseBtn = document.querySelector(`[data-index="${index}"]`);
+  cardCloseBtn.addEventListener('click', () => {
+    myLibrary.splice(index, 1);
+    clearDisplay();
+    displayBook();
+  })
 }
 
 displayBook();
