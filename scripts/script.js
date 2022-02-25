@@ -1,14 +1,15 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
-}
-
-Book.prototype.changeReadBtn = function() {
-  this.read = this.read === 'Read' ? 'Unread' : 'Read'
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  changeReadBtn() {
+    this.read = this.read === 'Read' ? 'Unread' : 'Read';
+  }
 }
 
 function addBookToLibrary(book) {
@@ -112,13 +113,7 @@ function closeBookForm() {
 }
 
 function submitBook() {
-  let newBook = Object.create(Book.prototype);
-  newBook.title = title.value;
-  newBook.author = author.value;
-  newBook.pages = `${pages.value} pages`;
-  newBook.read = read.textContent;
-
-  addBookToLibrary(newBook);
+  addBookToLibrary(new Book(title.value, author.value, `${pages.value} pages`, read.textContent));
 
   // clear the books from display before displaying again so that display
   // books do not double
