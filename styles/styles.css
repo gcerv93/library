@@ -245,3 +245,6 @@ header {
   bottom: 0;
 }
 
+#title:invalid {
+  border: 1px dotted red;
+}
